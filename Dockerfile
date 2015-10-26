@@ -13,7 +13,15 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python-virtualenv \
     python-psycopg2 \
+    wget
+
+RUN sudo echo deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main > \
+    /etc/apt/sources.list.d/pgdg.list
+
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+    sudo apt-key add -
+
+RUN apt-get update && apt-get install -y \
     postgresql-9.4 \
     libpq-dev \
-    postgresql-contrib-9.4 \
-    && rm -f /var/lib/apt/lists/*
+    postgresql-contrib-9.4
